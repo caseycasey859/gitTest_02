@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/jquery.min.js"></script>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="./css/main.css">
+    <script>
+        $(function () {
+            $('body').fadeIn(1000);
+        });
+    </script>
+</head>
+
+<body>
+    <!-- 상단 Area시작-->
+    
+    <div id="topArea">
+        <!-- 내비 Zone시작 -->
+        <script>
+            $(function () {
+                $('.gnb > ul > li:nth-child(3)').on('mouseover', function () {
+                    const subMenuItems = $('.gnb>ul>li:nth-child(3) div > ul > li');
+                    subMenuItems.css('display', 'block').each(function (index) {
+                        $(this).delay(index * 200).animate({
+                            'opacity': '1',
+                            'margin-top': '0'
+                        }, 500); // 애니메이션 시간 변경
+                    });
+                    $('.gnb div.Shop_item').fadeIn(); // 서브 메뉴 보이기
+                });
+
+                $('.gnb > ul > li:nth-child(3)').on('mouseleave', function () {
+                    const subMenuItems = $('.gnb>ul>li:nth-child(3) div > ul > li');
+                    subMenuItems.stop(true, true).each(function (index) {
+                        $(this).delay(index * 200).animate({
+                            'opacity': '0',
+                            'margin-top': '10px'
+                        }, 500, function () {
+                            $(this).css('display', 'none');
+                        });
+                    });
+                    $('.gnb div.Shop_item').fadeOut(); // 서브 메뉴 숨기기
+                });
+                $('.gnb > ul > li:nth-child(4)').on('mouseover', function () {
+                    const subMenuItems = $('.gnb>ul>li:nth-child(4) div > ul > li');
+                    subMenuItems.css('display', 'block').each(function (index) {
+                        $(this).delay(index * 100).animate({
+                            'opacity': '1',
+                            'margin-top': '0'
+                        }, 500); // 애니메이션 시간 변경
+                    });
+                    $('.gnb div.Community_item').fadeIn(); // 서브 메뉴 보이기
+                });
+
+                $('.gnb > ul > li:nth-child(4)').on('mouseleave', function () {
+                    const subMenuItems = $('.gnb>ul>li:nth-child(4) div > ul > li');
+                    subMenuItems.stop(true, true).each(function (index) {
+                        $(this).delay(index * 100).animate({
+                            'opacity': '0',
+                            'margin-top': '10px'
+                        }, 500, function () {
+                            $(this).css('display', 'none');
+                        });
+                    });
+                    $('.gnb div.Community_item').fadeOut(); // 서브 메뉴 숨기기
+                });
+            });
+
+        </script>
+        <div id="navZone">
+            <div class="logo">
+                <a href="index.html"><img src="./Images/logo.png" alt=""></a>
+            </div>
+            <div class="gnb">
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="shop-1.html" class="Shop">Shop</a>
+                        <div class="Shop_item">
+                            <ul>
+                                <li><a href="shop-1.html" class="Shop">Furniture</a></li>
+                                <li><a href="#" class="Shop">Home deco</a></li>
+                                <li><a href="#" class="Shop">Lighting</a></li>
+                                <li><a href="#" class="Shop">Kitchen</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li><a href="./community/Commu_p.html" class="Community">Community</a>
+                        <div class="Community_item">
+                            <ul>
+                                <li><a href="./community/Commu_p.html" class="Community">Notice</a></li>
+                                <li><a href="#" class="Community">Event</a></li>
+                                <li><a href="#" class="Community">Q&A</a></li>
+                                <li><a href="#" class="Community">Review</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li><a href="/member/login.html">Log in</a></li>
+                    <li><a href="#"><img src="" alt=""></a></li>
+                    <li><a href="#"><img src="" alt=""></a></li>
+
+                </ul>
+            </div>
+        </div>
+        <!-- 내비 Zone끝 -->
+        <!-- 컨텐츠Zone시작 -->
+        <script>
+            let count = 1;
+            let textcount = 1;
+            let change;
+
+            $(function () {
+                function textUp() {
+                    $('#textshow>span').remove();
+                    let text = $('#textZone>p.active').text();
+                    const textArr = [...text];
+                    for (let i = 0; i <= textArr.length; i++) {
+                        if (textArr[i] == ' ') {
+                            textArr[i] = '&nbsp';
+                        }
+                        if (i < textArr.length) {
+                            $('#textshow').append('<span>' + String(textArr[i]) + '</span>');
+                            $('#textshow>span:nth-child(' + (i + 1) + ')').delay(i * 100).animate({
+                                'opacity': '1',
+                                'margin-top': '10px'
+                            }, 500)
+                        } else {
+                            $('#textshow>span:nth-child(' + (i + 1) + ')').delay(i * 100).animate({
+                                'opacity': '1',
+                                'margin-top': '10px'
+                            }, 500)
+                        }
+                    }
+                }
+                function imgChange() {
+                    $('#controlZone>a').eq(2).removeClass('active')
+                    count++;
+                    $('#contentsZone').prepend(`<img src="./Images/img${count}.jpg">`)
+                    $('#contentsZone>img:last').fadeOut(700, function () {
+                        $('#contentsZone>img:last').remove();
+                    });
+                    $('#controlZone>a').removeClass('active')
+                    $('#controlZone>a').eq(count - 1).addClass('active')
+                    if (count > 2) {
+
+                        count = 0;
+                    }
+                    $('#textZone>p.active').css({
+                        'opacity': '0',
+                        'top': '48%'
+                    });
+                    $(`#textZone>p:nth-child(${textcount})`).removeClass('active');
+                    textcount++;
+                    if (textcount == 4) {
+                        textcount = 1;
+                    }
+                    $(`#textZone>p:nth-child(${textcount})`).addClass('active');
+                    textUp();
+                }
+                textUp();
+                change = setInterval(imgChange, 4000);
+                $('#controlZone>a').on('click', function () {
+                    clearInterval(change);
+                    let imgAddr = $(this).attr('href');
+                    let textdata = parseInt($(this).attr('data'));
+                    $('#contentsZone').prepend(`<img src="${imgAddr}">`)
+                    $('#contentsZone>img:last').fadeOut(700, function () {
+                        $('#contentsZone>img:last').remove();
+                    });
+                    $('#controlZone>a').removeClass('active');
+                    $(this).addClass('active')
+                    count = parseInt($(this).attr('data'));
+                    if (count > 2) {
+                        count = 0;
+                    }
+                    $('#textZone>p.active').css({
+                        'opacity': '0',
+                        'top': '48%'
+                    });
+                    $(`#textZone>p`).removeClass('active');
+                    $(`#textZone>p:nth-child(${textdata})`).addClass('active');
+                    textUp();
+                    change = setInterval(imgChange, 4000);
+                    return false;
+                });
+
+
+
+            });
+        </script>
+        <div id="contentsZone">
+            <img src="./Images/img1.jpg" alt="1">
+        </div>
+        <div id="textZone">
+            <p class="active">좋아하는 것을 누릴 수 있도록.</p>
+            <p>내 일상도 소중한 순간이라는 것.</p>
+            <p>취향을 함께 공유해보다.</p>
+        </div>
+        <div id="textshow">
+
+        </div>
+        <!-- 컨텐츠Zone끝 -->
+
+        <!-- 컨트롤Zone 시작-->
+        <div id="controlZone">
+            <a href="./Images/img1.jpg" class="active" data="1">하나</a>
+            <a href="./Images/img2.jpg" data="2">둘</a>
+            <a href="./Images/img3.jpg" data="3">셋</a>
+        </div>
+        <!-- 컨트롤Zone 끝-->
+
+    </div>
+    <!-- 상단 Area끝 -->
+    <!-- 하단 Area시작 -->
+    <div id="bottomArea">
+        <div class="leftZone">
+            <div class="fotterLogo">
+                <img src="./Images/logo_fotter.png" alt="">
+            </div>
+            <p>모아스튜디오</p>
+            <p>Copyright ⓒ모아스튜디오.All right reserved</p>
+        </div>
+        <div class="rightZone">
+            <div class="rightZone1">
+                <p>070-8095-3686</p>
+                <p>MON - FRI : 11-6pm</p>
+                <p>SON,MON OFF</p>
+                <p>우리은행:1002-955-738542 (고종현)</p>
+                <p>모아스튜디오</p>
+            </div>
+            <div class="rightZone2">
+                <p>Owner : 고종현</p>
+                <p>Address : 서울특별시 강서구 곰달래로31나길</p>
+                <p>Business License : </p>
+                <p>Online business license</p>
+                <p>Designed by moa-studio·Hosting by 카페24(주)</p>
+            </div>
+            <div class="rightZone3">
+                <p>about</p>
+                <p>agreement</p>
+                <p>guide</p>
+                <p>privacy</p>
+            </div>
+            <div class="rightZone4">
+                <p>Instagram</p>
+                <p>youtube</p>
+                <p>naverstore</p>
+                <p>facebook</p>
+            </div>
+
+        </div>
+    </div>
+    <!-- 하단 Area끝 -->
+</body>
+
+</html>
